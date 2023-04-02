@@ -1,0 +1,311 @@
+body {
+    background: rgb(17, 17, 18);
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+h2 {
+    font-size: 57px;
+    margin-bottom: 57px;
+    font-weight: 300;
+    height: 70px;
+}
+div#main_navigation {
+    float: left;
+    width: 380px;
+    padding: 63px 31px;
+    background-color: #1976d2;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+}
+#navigation_options {
+    list-style: none;
+    padding: 0px;
+}
+#navigation_options li {
+    height: 48px;
+    line-height: 48px;
+    position: relative;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#navigation_options li i {
+    width: 48px;
+    text-align: center;
+    float: left;
+    padding: 16px 0px;
+}
+#navigation_options li.active{
+    height: 48px;
+    line-height: 48px;
+    position: relative;
+    color: white;
+}
+li.search_field i {
+    
+}
+input#search::placeholder {
+    color: rgb(255,255,255);
+    font-size: 19px;
+
+}
+
+input#search {
+    background: transparent;
+    border: 0px;
+    padding: 0px 14px;
+    color: black;
+    width: 100%;
+}
+#navigation_options span {
+    float: left;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+div#nav_toggle_button {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+div#nav_toggle_button i {
+    padding: 11px;
+}
+#navigation_options li:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+div#nav_toggle_button i:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+div#img_track {
+    width: 200px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+div#audio_row {
+    overflow: hidden;
+    background-color: #fde00a;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    }
+.active .menu_border {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    width: 3px;
+    height: 20px;
+    display: none;
+    -webkit-transition: background-color .3s ease;
+    -o-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+    background: white;
+    display: block;
+}
+
+div#music_player1 {
+    float: left;
+    height: 100%;
+    position: static;
+    margin-left: 440px;
+    width: 70%;
+    margin-top: 70px;
+    font-weight: 300;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    --bs-table-accent-bg: rgba(0, 0, 0, 0.02);
+    color: var(--bs-table-striped-color);
+}
+.table td {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.table th{
+	    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 300;
+}
+.song_title {
+    color: rgb(255,255,255) !important;
+    font-size: 16px;
+    font-weight: 300;
+}
+tr.active .song_title, .active th{
+    color: rgb(25, 118, 210) !important;
+}
+td.like:hover {
+    color: rgb(25, 118, 210) !important;
+}
+td.like i:hover {
+    
+}
+#img_track {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    float: left;
+    margin-right: 24px;
+    overflow: hidden;
+}
+div#audio_row {
+    overflow: hidden;
+    background-color: rgba(178, 178, 180, 0.95);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    height: 60px;
+}
+#audio_row div#title {
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    height: 23px;
+    overflow: hidden;
+}
+#audio_row div#artist {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
+}
+.song_info {
+    float: left;
+    margin-top: 8px;
+    width: 80%;
+}
+div#track_list_table {
+    margin-bottom: 160px;
+}
+audio::-webkit-media-controls-panel {
+  background-color: rgba(33, 34, 40, 0.95);
+  color: #fff;
+  border-radius: 0px;
+  width: 100%;
+}
+audio#audio {
+    width: 90%;
+    height: 57px;
+}
+p#formError {
+  visibility: hidden;
+  background-color: #cc0000;
+  border-radius: 6px;
+  color: #ffffff;
+  text-align: center;
+  padding: 8px 0;
+  width: 80vw;
+  max-width: 480px;
+  margin: 1rem auto 0;
+}
+
+.upload_form {
+    margin-bottom: 0px;
+    text-align: center;
+    border: 0px solid #1776d1;
+    padding: 50px 0px 60px;
+    margin-top: 70px;
+}
+.upload_form p{
+  margin: 15px 0;
+}
+#upload_progress {
+  display: block;
+margin: 1rem auto 0;
+width: 60%;
+display: none;
+}
+
+
+.button {
+    display: inline-block;
+    padding: 10px 30px;
+    background: #1776d1;
+    cursor: pointer;
+    border-radius: 0px;
+    border: 1px solid #1673cc;
+    color: rgb(255 255 255);
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 22px;
+}
+
+.button:hover {
+    background: #7fb1da;
+}
+#fileElem {
+  display: none;
+}
+td.like.active i{
+    font-weight: bold;
+    color: rgb(25, 118, 210) !important;
+}
+li.search_field i{
+	display: none;
+}
+
+.table th {
+    color: #fff;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: rgba(255, 255, 255, 0.02);
+
+ }
+
+.table-striped>tbody>tr>td, 
+.table-striped>tbody>tr>th {
+ border: 0px solid;
+
+}
+
+
+audio::-webkit-media-controls-panel {
+    background: #212127;
+    border: 0px solid;
+    box-shadow: 0px 0px 0px red !important;
+    
+    border-radius: 0%;
+}
+
+
+* {
+    transition: 400ms cubic-bezier(0.06, 0.55, 0.6, 0.9);
+}
+audio{
+  background-color:rgba(178, 178, 180, 0.95);
+  width: 100%;
+  outline: 0;
+}
+audio::-webkit-media-controls-panel{
+  background-color: rgba(178, 178, 180, 0.95);
+
+}
+
+input, select, textarea{
+    color: #fff;
+}
+
+textarea:focus, input:focus {
+    color: #fff;
+}
+input#search {
+    background: transparent;
+    border: 0px;
+    padding: 0px 14px;
+    color: white;
+    width: 100%;
+}
+
+input#search:focus {
+    outline: 0;
+    background: #0000001a;
+    font-size: 19px;
+}
