@@ -1,5 +1,5 @@
 body {
-    background: rgb(17, 17, 18);
+    background: rgb(44, 1, 1);
     font-family: 'Open Sans', sans-serif;
     color: #fff;
 }
@@ -13,7 +13,7 @@ div#main_navigation {
     float: left;
     width: 380px;
     padding: 63px 31px;
-    background-color: #1976d2;
+    background-color: #240630;
     height: 100%;
     position: fixed;
     z-index: 1;

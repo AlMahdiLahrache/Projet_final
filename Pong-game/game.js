@@ -11,11 +11,13 @@ const color = "#f9f9f9";
 
 const game_over = document.querySelector('#game-over-sound');
 const hit = document.querySelector('#ball-hit-sound');
-hit.playbackRate = 5; // vitesse de lecture du son
+hit.playbackRate = 10; // vitesse de lecture du son
 
+/*
 // Définir des variables pour stocker l'état des fléches
 let leftArrowPressed = false;
 let rightArrowPressed = false;
+*/
 
 var spacePressed = false;
 var two_clients = false;
@@ -23,6 +25,7 @@ var two_clients = false;
 var score1 = 0;
 var score2 = 0;
 
+var ID = 0;
 var ID1 = null;
 var ID2 = null;
 
@@ -30,8 +33,8 @@ var ball = {
   x: w/2,
   y: h/2,
   r: 8,
-  dx: 1.5,
-  dy: 1.5
+  dx: 1.2,
+  dy: 1.2
 };
 
 var paddle1 = {
@@ -90,16 +93,19 @@ document.addEventListener('mousemove', function(event) {
 document.addEventListener('keydown', function(event) {
   if (document.activeElement.nodeName.toLowerCase() != "input") { // pour ne pas prendre en compte les touches qd on est dans le chat
   if (event.code == 'Space') {
-    socket.emit('space', true); 
+    socket.emit('space', ID); 
   }
   if (event.code === 'ArrowLeft' && ID == ID1 ) {
-    leftArrowPressed = true;
+    // leftArrowPressed = true;
+    socket.emit('leftArrowPressed', true); 
   } else if (event.code === 'ArrowRight' && ID == ID1) {
-    rightArrowPressed = true;
+    // rightArrowPressed = true;
+    socket.emit('rightArrowPressed', true); 
   }
 }
 });
 
+/*
 document.addEventListener('keyup', function(event) {
   if (event.code === 'ArrowLeft') {
     leftArrowPressed = false;
@@ -107,7 +113,7 @@ document.addEventListener('keyup', function(event) {
     rightArrowPressed = false;
   }
 });
-
+*/
 
 function draw() {
 
@@ -161,6 +167,7 @@ function move_ball() {
       ball.y + ball.r >= paddle1.y && 
       ball.y - ball.r <= paddle1.y + paddle1.h) {
         hit.play();
+        ball.x -= ball.dx;
         ball.dx = -ball.dx;
   }
 
@@ -168,29 +175,31 @@ function move_ball() {
       ball.y + ball.r >= paddle2.y && 
       ball.y - ball.r <= paddle2.y + paddle2.h) {
         hit.play();
+        ball.x -= ball.dx;
         ball.dx = -ball.dx;
   }
 }
 
-function move_paddle1() {
+function move_paddle1(left,right) {
   // si on appuie sur la fleche droite, déplacer paddle1 en bas par paddle1.dy
-  if (rightArrowPressed && paddle1.y + paddle1.h < canvas.height){
-    paddle1.y +=paddle1.dy;
+  if (right && paddle1.y + paddle1.h < canvas.height){
+    paddle1.y +=10*paddle1.dy;
     socket.emit('move', paddle1.y);
   }
 
   // si on appuie sur la fleche droite, déplacer paddle1 en haut par paddle1.dy
-  if (leftArrowPressed && paddle1.y>0){
-    paddle1.y-=paddle1.dy;
+  if (left && paddle1.y>0){
+    paddle1.y-=5*paddle1.dy;
     socket.emit('move', paddle1.y);
   }
 }
 
-
+/*
 function move() {
   move_ball();
-  move_paddle1();
+  // move_paddle1();
 }
+*/
 
 function restart_game() {
   spacePressed = false; 
@@ -216,6 +225,7 @@ function check_end() {
 };
 
 
+
 socket.on ('start', (data) => {
   if (data) { // qd on a deux clients: data = connected clients
   two_clients = true;
@@ -230,7 +240,7 @@ socket.on ('start', (data) => {
     restart_game(); // qd un client s'est déconnecté: data = false
     score1 = 0; 
     score2 = 0;
-    alert("L'autre joueur a quitté");
+    // alert("L'autre joueur a quitté");
 
   }
 });
@@ -241,13 +251,34 @@ socket.on('connect', ()=>{
 });
 
 
-socket.on('spacePressed', data => {
-  spacePressed = true;
+socket.on('spacePressed', (data) => {
+  if (data==ID) {
+    setTimeout(()=>{spacePressed = true}, 80);
+  }
+  else {
+    spacePressed = true;
+  }
 });
 
+/*
 socket.on('move', data => {
   ctx.clearRect(paddle1.x, paddle1.y, paddle1.w, paddle1.h);
   paddle1.y = data;
+});
+*/
+
+socket.on('leftArrow', (data)=>{
+  if (data){
+    ctx.clearRect(paddle1.x, paddle1.y, paddle1.w, paddle1.h);
+    move_paddle1(true,false);
+  };
+});
+
+socket.on('rightArrow', (data)=>{
+  if (data){
+    ctx.clearRect(paddle1.x, paddle1.y, paddle1.w, paddle1.h);
+    move_paddle1(false,true);
+  };
 });
 
 socket.on('mouseMove',(data)=> {
@@ -255,29 +286,29 @@ socket.on('mouseMove',(data)=> {
   if (data < paddle2.y && paddle2.y>0){
     ctx.clearRect(paddle2.x, paddle2.y, paddle2.w, paddle2.h);
     paddle2.y = data;
-  }
+  };
   if (data > paddle2.y && paddle2.y + paddle2.h < canvas.height){
     ctx.clearRect(paddle2.x, paddle2.y, paddle2.w, paddle2.h);
     paddle2.y = data;
-  }  
+  };
 });
 
 
 socket.on('score1', (data) => {
   score1 = data; 
   restart_game();
+  check_end();
 });
 
 socket.on('score2', (data) => {
   score2 = data; 
   restart_game();
+  check_end();
 });
 
 socket.on('end',(data)=>{
-  score1 = 0;
-  score2 = 0;
   ID_gagnant = data;
-  spacePressed = false;
+  restart_game();
   if (ID == ID_gagnant){
   alert('Vous avez gagné!');
   }
@@ -290,17 +321,15 @@ socket.on('end',(data)=>{
 
 
 function gameLoop() { 
-  check_end();
 
-  if (two_clients && spacePressed) {
+  if (two_clients && spacePressed ) {
     clear_canvas();
-    move();
+    move_ball();
     draw();
   }
   
   else if (two_clients) { // executer ce bloc apres un goal quand on n'a pas encore appuyé sur space, permet le mvt des paddles
     clear_canvas();
-    move_paddle1();
     draw();
   }
 

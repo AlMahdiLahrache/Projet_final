@@ -5,7 +5,6 @@ const io = require('socket.io')(http);
 const path = require('path');
 
 
-
 app.use(express.static(path.join(__dirname)));
 
 var numClients = 0;
@@ -22,8 +21,9 @@ io.on('connection', (socket) => {
   if (numClients == 2) {
     io.emit('start', connectedClients);
   }
-  socket.on('space', (space)=> {
-    io.emit('spacePressed',true);
+  socket.on('space', (data)=> {
+    io.emit('spacePressed',data);
+
   })
   // Listen chat messages
 
@@ -32,10 +32,20 @@ io.on('connection', (socket) => {
     io.emit('message', data);
   });
 
-  // Listen paddle1 movements 
+  /*
+  // Mouvements du paddle1  
   socket.on('move', (data) => {
     socket.broadcast.emit('move', data);
   });
+  */
+
+  // mouvement du paddle1
+  socket.on('leftArrowPressed', (data)=>{
+    io.emit('leftArrow',data);
+  })
+  socket.on('rightArrowPressed', (data)=>{
+    io.emit('rightArrow',data);
+  })  
 
   // Listen to mouse moves
   socket.on ('mouse', (data)=> {

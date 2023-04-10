@@ -235,7 +235,7 @@ La fonction "read_music" crée une liste de chansons dans le fichier HTML. Elle 
 // function creating tr of songs in html
 function read_music(){
 	let tit = document.getElementsByTagName("h2");
-  main_navigation.style.background="#1976d2";
+  main_navigation.style.background="#240630";
 	tit[0].innerHTML = "Musique";
 	track_list_body.innerHTML="";
     for (let i=0; i<data_music.length; i++) {
@@ -247,7 +247,6 @@ function read_music(){
     		el.setAttribute("class","like active");
     	}
     }
-
 }
 
 /*
@@ -492,7 +491,6 @@ function favorite_songs(){
     		el.setAttribute("class","like active");
     	}
     }
-	
 }
 
 
